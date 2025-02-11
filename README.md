@@ -101,10 +101,6 @@ Fetching page 1...
 
 ## 👨‍💻 Author
 
-- **[Your Name]** – [GitHub](https://github.com/yourusername) | [LinkedIn](https://linkedin.com/in/yourprofile)
+- **Y.P** – [GitHub](https://github.com/yp-data)
 
----
 
-## 📜 License
-
-This project is licensed under the **MIT License** – feel free to modify and distribute.
