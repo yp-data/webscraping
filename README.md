@@ -1,4 +1,4 @@
-# 🚗 Alivizatos Car Listings Web Scraper
+#  Alivizatos Car Listings Web Scraper
 
 This project is a **web scraper** designed to extract **car listings** from [Alivizatos.gr](https://alivizatos.gr), storing the data in a **PostgreSQL** database while tracking the status (`active` or `inactive`) of each listing.
 
@@ -14,7 +14,7 @@ This project is a **web scraper** designed to extract **car listings** from [Ali
 
 ---
 
-## 🛠 Tech Stack
+## Tech Stack
 
 - **Python** (Requests, BeautifulSoup, Pandas)
 - **PostgreSQL** (psycopg2)
@@ -22,7 +22,7 @@ This project is a **web scraper** designed to extract **car listings** from [Ali
 
 ---
 
-## 🚀 How It Works
+## How It Works
 
 1. The scraper **fetches** all car listing URLs.
 2. It **extracts** relevant details from each listing.
@@ -34,20 +34,20 @@ This project is a **web scraper** designed to extract **car listings** from [Ali
 
 ---
 
-## 📂 Installation
+## Installation
 
-### 1️⃣ Clone the Repository
+### 1. Clone the Repository
 ```bash
 git clone https://github.com/yourusername/alivizatos-scraper.git
 cd alivizatos-scraper
 ```
 
-### 2️⃣ Install Dependencies
+### 2️. Install Dependencies
 ```bash
 pip install -r requirements.txt
 ```
 
-### 3️⃣ Configure PostgreSQL
+### 3️. Configure PostgreSQL
 
 Update your **database credentials** in `config.py` or modify `DB_PARAMS` in `AlivizatosNew.py`:
 ```python
@@ -60,14 +60,14 @@ DB_PARAMS = {
 }
 ```
 
-### 4️⃣ Run the Scraper
+### 4️. Run the Scraper
 ```bash
 python AlivizatosNew.py
 ```
 
 ---
 
-## 📊 Sample Output
+##  Sample Output
 
 ```
 🚀 Starting Scraper...
