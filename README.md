@@ -2,7 +2,7 @@
 
 This repository showcases advanced data scraping projects built in Python. These scripts are used in production to extract structured business information from Google Maps and other business directories for market research, lead generation, and local SEO analysis.
 
-The focus is on robustness, deduplication, and clean integration with PostgreSQL databases, making this more than a basic scraper — it's a modular pipeline designed for scalable, accurate data collection.
+The focus is on robustness, deduplication, and clean integration with PostgreSQL databases, making this more than a basic scraper, it's a modular pipeline designed for scalable, accurate data collection.
 
 ---
 
