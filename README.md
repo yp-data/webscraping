@@ -1,106 +1,114 @@
-#  Alivizatos Car Listings Web Scraper
+# Webscraping Portfolio
 
-This project is a **web scraper** designed to extract **car listings** from [Alivizatos.gr](https://alivizatos.gr), storing the data in a **PostgreSQL** database while tracking the status (`active` or `inactive`) of each listing.
+This repository showcases advanced data scraping projects built in Python. These scripts are used in production to extract structured business information from Google Maps and other business directories for market research, lead generation, and local SEO analysis.
 
----
-
-## 📌 Features
-
-✅ Scrapes **car details** including title, price, attributes, and features.  
-✅ Stores data in **PostgreSQL**, appending new listings while avoiding duplicates.  
-✅ Tracks car availability using **adstatus** (`active` or `inactive`).  
-✅ Saves the scraped data to a **CSV file** for easy access.  
-✅ Implements **error handling** for robust scraping.
+The focus is on robustness, deduplication, and clean integration with PostgreSQL databases, making this more than a basic scraper — it's a modular pipeline designed for scalable, accurate data collection.
 
 ---
 
-## Tech Stack
+## Overview
 
-- **Python** (Requests, BeautifulSoup, Pandas)
-- **PostgreSQL** (psycopg2)
-- **Tabulate** (for clean console output)
+### 1. Google Maps Scraper (`google_scraper/google_scraper.py`)
+This scraper extracts business details from Google Maps based on dynamic search queries pulled from a PostgreSQL `cities` table.
 
----
+**What it does:**
+- Automates Chrome to search terms like "garage door repair Chicago IL"
+- Extracts business name, phone, address, website, hours, reviews, rating, geolocation, and Google Place ID
+- Deduplicates results by comparing to existing organization records (via fuzzy logic + phone/site/address matching)
+- Stores new or updated entries into an `organizations` table
+- Extracts and stores reviews per business into a `reviews` table
 
-## How It Works
-
-1. The scraper **fetches** all car listing URLs.
-2. It **extracts** relevant details from each listing.
-3. Data is **compared** with the latest database records:
-   - **New listings** → Inserted as **active**.
-   - **Missing listings** → Marked as **inactive**.
-   - **Previously inactive listings** → Not reinserted.
-4. The final dataset is **saved** to PostgreSQL and exported to a CSV.
+### 2. Alivizatos Scraper (`alivizatos_scraper/Alivizatos.py`)
+A lightweight legal site scraper targeting structured articles from a law firm website. It extracts title, date, and body content from posts.
 
 ---
 
-## Installation
+## What I Built and Why
 
-### 1. Clone the Repository
+I designed this scraper system to support a data product tracking garage door service companies across the U.S. The primary goals were:
+- **Reliability**: it handles JS-rendered content using Selenium
+- **Deduplication**: fuzzy match logic minimizes redundant records
+- **Scalability**: database-first design enables analysis across hundreds of cities
+- **Accuracy**: scraped data is validated, enriched, and geo-tagged
+
+---
+
+## Technologies Used
+
+- Python 3
+- Selenium (headless Chrome)
+- PostgreSQL
+- FuzzyWuzzy (deduplication)
+- Google Maps DOM parsing
+- JSONB handling for structured inserts
+- Git + GitHub
+
+---
+
+## Setup & Run
+
+### 1. Clone the repo
 ```bash
-git clone https://github.com/yourusername/alivizatos-scraper.git
-cd alivizatos-scraper
+git clone https://github.com/yp-data/webscraping.git
+cd webscraping
 ```
 
-### 2️. Install Dependencies
+### 2. Setup virtual environment
+```bash
+python3 -m venv .venv
+source .venv/bin/activate
+```
+
+### 3. Install dependencies
 ```bash
 pip install -r requirements.txt
 ```
 
-### 3️. Configure PostgreSQL
-
-Update your **database credentials** in `config.py` or modify `DB_PARAMS` in `AlivizatosNew.py`:
-```python
-DB_PARAMS = {
-    "dbname": "vehicle_listing_db",
-    "user": "postgres",
-    "password": "yourpassword",
-    "host": "localhost",
-    "port": "5432"
-}
-```
-
-### 4️. Run the Scraper
+### 4. Configure `.env` file
+Rename `.env.example` to `.env` and add your database URLs and output folder:
 ```bash
-python AlivizatosNew.py
+cp .env.example .env
 ```
 
 ---
 
-##  Sample Output
+## Project Structure
 
 ```
-🚀 Starting Scraper...
-
-✅ Table 'car_details' checked/created successfully.
-Fetching page 1...
-✅ Data for BMW X5 inserted into PostgreSQL with status 'active'.
-✅ Data for Audi A3 inserted into PostgreSQL with status 'active'.
-❗ Marked https://alivizatos.gr/listing/old-car-url/ as INACTIVE.
-📊 Table View of First 5 Listings:
-+----+--------+----------------------------------------+--------+------------+
-| ID | Title  | Car URL                               | Price  | AdStatus   |
-+----+--------+----------------------------------------+--------+------------+
-| 1  | BMW X5 | https://alivizatos.gr/listing/bmw-x5 | 35,000€ | Active     |
-| 2  | Audi A3 | https://alivizatos.gr/listing/audi-a3 | 18,500€ | Active     |
-| 3  | Tesla  | https://alivizatos.gr/listing/tesla  | 50,000€ | Inactive   |
-+----+--------+----------------------------------------+--------+------------+
-
-✅ Data saved to 'scraped_car_listings.csv'
+webscraping/
+├── alivizatos_scraper/
+│   └── Alivizatos.py
+├── google_scraper/
+│   └── google_scraper.py
+├── requirements.txt
+├── .gitignore
+├── .env.example
+└── README.md
 ```
 
 ---
 
-## 📌 To-Do / Future Enhancements
+## Environment Variables
 
-- [ ] Add support for **proxy rotation** to avoid bot detection.
-- [ ] Implement **multi-threading** for faster scraping.
-- [ ] Integrate with **Power BI** or **Tableau** for analytics.
+Defined in `.env`:
+```env
+READ_DB_URL=postgresql://your-read-username:your-password@host:port/dbname?sslmode=require
+WRITE_DB_URL=postgresql://your-write-username:your-password@host:port/dbname?sslmode=require
+GOOGLE_OUTPUT_DIR=./scraped-data/google
+YELP_OUTPUT_DIR=./scraped-data/yelp
+BBB_OUTPUT_DIR=./scraped-data/bbb
+```
 
 ---
 
-## 👨‍💻 Author
+## Disclaimers
 
-- **Y.P** – [GitHub](https://github.com/yp-data)
+- This code is for educational and professional demonstration purposes.
+- Web scraping should comply with the terms of service of the websites involved.
+- This project uses Selenium to simulate browser behavior for publicly available data.
 
+---
 
+## Contact
+
+Built by Yuri P. For questions, collaborations, or freelance scraping projects, reach me via [Email](mailto:yuri.punzalan@gmail.com)
