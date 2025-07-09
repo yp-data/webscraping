@@ -753,8 +753,8 @@ def scrape_google_maps(queries, wait_time=3, limit=None):
                         driver = webdriver.Chrome(service=Service(driver_path), options=options)
                         READ_CONN.close()
                         WRITE_CONN.close()
-                        READ_CONN = psycopg2.connect("postgresql://neondb_owner:Q2mdLAMGB8qt@ep-round-lake-a5ma98a1-pooler.us-east-2.aws.neon.tech/neondb?sslmode=require")
-                        WRITE_CONN = psycopg2.connect("postgresql://gdh-collect_owner:npg_2hnjNz0GWvDL@ep-wispy-mud-a5aqix78-pooler.us-east-2.aws.neon.tech/gdh-collect?sslmode=require")
+                        READ_CONN = psycopg2.connect(os.getenv("READ_DB_URL"))
+                        WRITE_CONN = psycopg2.connect(os.getenv("WRITE_DB_URL"))
                     else:
                         print(f"Failed to scrape a result: {e}")
                     continue
